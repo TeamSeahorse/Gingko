@@ -51,7 +51,7 @@ function signUpOut(usernameText, passwordText) {
   };
 
   loginRequest.onerror = function() {
-    console.log('Connection Error')
+    // console.log('Connection Error')
   };
 
   loginRequest.send(JSON.stringify({ username: usernameText, password: passwordText}));
@@ -65,7 +65,7 @@ class Login extends React.Component {
   }
 
   login(usernameText, passwordText) {
-    console.log('In Login Comp Login Function with', usernameText, passwordText);
+    // console.log('In Login Comp Login Function with', usernameText, passwordText);
     let loginResp = (servResp) => {
       if (!servResp.error) {
         this.setState(() => ({
@@ -86,9 +86,9 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log('Login Component Props are', this.props);
-    console.log('Login Component State are', this.state);
-    console.log('Login Component has', this);
+    // console.log('Login Component Props are', this.props);
+    // console.log('Login Component State are', this.state);
+    // console.log('Login Component has', this);
     const { userLogginIn, invalidLogin, userInfo } = this.state;
 
     if (userLogginIn === true) {
@@ -105,18 +105,18 @@ class Login extends React.Component {
 
     return (
       <div>
-        <input type="text" name="username" id="usernameInput" defaultValue="Username"/>
-        <input type="text" name="password" id="passwordInput" defaultValue="Password"/>
+        <input type="text" name="username" id="usernameInput" placeholder="Username"/>
+        <input type="text" name="password" id="passwordInput" placeholder="Password"/>
         <button onClick={() => {
           let usernameText = document.getElementById('usernameInput').value;
           let passwordText = document.getElementById('passwordInput').value;
-          console.log('Clicked Login Button:', usernameText, passwordText);
+          // console.log('Clicked Login Button:', usernameText, passwordText);
           this.login(usernameText, passwordText);
         }}>Login</button>
         <button onClick={() => {
           let usernameText = document.getElementById('usernameInput').value;
           let passwordText = document.getElementById('passwordInput').value;
-          console.log('Clicked Signup Button:', usernameText, passwordText);
+          // console.log('Clicked Signup Button:', usernameText, passwordText);
           this.signUp(usernameText, passwordText);
         }}>Sign Up</button>
         {failedLogin}

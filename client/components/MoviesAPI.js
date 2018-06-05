@@ -1,7 +1,7 @@
 import React from 'react';
 
-const API1 = (props) => {
-  console.log('AP1 props are', props);
+const MoviesAPI = (props) => {
+  // console.log('AP1 props are', props);
   return (
   <div className="apiDiv">
   	<h1>Films</h1>
@@ -13,4 +13,4 @@ const API1 = (props) => {
   );   
 };
 
-export default API1;
+export default MoviesAPI;

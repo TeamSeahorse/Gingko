@@ -1,7 +1,7 @@
 import React from 'react';
 
-const API = (props) => {
-    console.log('what is props :' , props.info);
+const WeatherAPI = (props) => {
+    // console.log('what is props :' , props.info);
   return (
   <div className="apiDiv">
   	<h1>Weather</h1>
@@ -12,4 +12,4 @@ const API = (props) => {
   );   
 };
 
-export default API;
+export default WeatherAPI;

@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React from 'react';
 
-const ApiZeroDisplay = (props) => {
-  console.log('api0Display props are', props);
+const PokemonAPI = (props) => {
+  // console.log('api0Display props are', props);
   return (
   	<div className='apiDiv'>
   	  <h3>Pokemon</h3>
@@ -13,4 +13,4 @@ const ApiZeroDisplay = (props) => {
   );  
 };
 
-export default ApiZeroDisplay;
+export default PokemonAPI;
