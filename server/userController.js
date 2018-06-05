@@ -4,7 +4,6 @@ const User = require('./../db/loginSchema');
 
 const userController = {};
 userController.createUser = (req, res) => {
-	console.log('req body is : ', req.body);
 
 	User.create({
 		username: req.body.username,
@@ -20,11 +19,14 @@ userController.createUser = (req, res) => {
 };
 
 userController.verifyUser = (req, res, next) => {
-
+	console.log('verifyUser req.body: ', req.body);
 	User.findOne(req.body, (err, userInfo) => {
+		console.log('userInfo: ',userInfo);
 		if (userInfo == null) {
+			console.log('userInfo == null');
 			res.send({error: 'user does not exist, please create an account'});
 		} else {
+			console.log('userInfo != null');
 			res.locals.userInfo = userInfo;
 			next();
 		}
@@ -44,7 +46,6 @@ function isURL(str) {
 }
 
 userController.defaultInterest = (req, res, next) => {
-	console.log('what am i receiving : ', req.body);
 	// console.log('receiving from verification: ', res.locals.userInfo);
 	User.findOne(res.locals.userInfo, 
 		 (err, success) => {
@@ -57,8 +58,25 @@ userController.defaultInterest = (req, res, next) => {
 };
 
 userController.addInterest = (req, res, next) => {
+	console.log('Inside userController - req.body: ', req.body);
 
-
+	User.findOne({username: req.body.username}, (err, user) => {
+		if (err) return console.log(err);
+		if (user == null) {
+			console.log('user == null');
+			res.send({error: 'user does not exist, please create an account'});
+		} else {
+			console.log('user != null');
+			user.set({ interests: req.body.interests });
+			user.save(function (saveErr, updatedUser) {
+				if (saveErr) return res.send(saveErr);
+				// res.send(updatedUser);
+				res.locals.userInfo = updatedUser;
+				next();
+			});
+		}
+	
+	});
 
 };
 

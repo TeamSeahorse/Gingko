@@ -7,7 +7,9 @@ const userController = require('./userController');
 const apiController = require('./apiController'); 
 
 const mongoose = require('mongoose'); 
+
 const MLAB_URI = 'mongodb://MylesG:ilovetesting1!@ds249530.mlab.com:49530/users';
+
 mongoose.connect(MLAB_URI);
 mongoose.connection.once('open', () => { 
 	console.log('Connected to Database'); 
@@ -22,9 +24,9 @@ app.post('/signup', userController.createUser);
 app.post('/login', 	userController.verifyUser,
 					apiController.makeInterestRequests);
 
+app.post('/addApi', userController.addInterest, apiController.addApi);
+
 app.post('/settings', userController.defaultInterest, (req, res) => {
-	console.log('updated interest1 is : ', res.body);
-	console.log('updated interest2 is : ', req.body);
 });
 
 app.post('/interests', apiController.addInterests);

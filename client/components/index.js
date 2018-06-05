@@ -15,7 +15,13 @@ import Feed from './Feed.js';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    // add initial state for feed component
+    // bind function
   }
+
+  // add method to update the subscriptions a user has. on click
+   // call the API subscription and update list 
+   // react bootstrap on click listener function
 
   render() {
     return (
@@ -29,4 +35,6 @@ class App extends React.Component {
   }
 }
 
+//replace component with render and contain props to pass down
+// pass method into feed
 ReactDOM.render(<App />, document.getElementById('contents'));

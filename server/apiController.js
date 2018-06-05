@@ -20,7 +20,6 @@ apiController.makeSingleReq = (req, expRes, next) => {
 	request(apiLink, { json: true }, (err, apiRes, body) => {
 	  if (err) { return console.log(err); }
 	  // console.log(apiRes);
-	  console.log(body);
 	  expRes.send({name: body.name});
 	});
 };
@@ -50,8 +49,7 @@ apiController.addInterests = (req,res) => {
 apiController.makeInterestRequests = (req, expRes, next) => {
 	// Going to add onto the res.userInfo object that will eventually be sent to the user
 	// Interests to loop through should be in expRes.locals.userInfo.interests
-	console.log('In api make many req');
-	console.log('Prev middleware data', expRes.locals.userInfo);
+	// let apiArr = expRes.locals.userInfo.interests;
 	let apiArr = expRes.locals.userInfo.interests;
 	// let apiArr = [0];
 	let apiResults = [];
@@ -68,7 +66,6 @@ apiController.makeInterestRequests = (req, expRes, next) => {
 			  	console.log(err);
 			  	reject('err');
 			  }
-			  console.log('Got body');
 			  resolve(body);
 			  // expRes.send({name: body.name});
 			});
@@ -78,7 +75,6 @@ apiController.makeInterestRequests = (req, expRes, next) => {
 	}
 
 	Promise.all(apiResults).then((results) => {
-	    console.log('Got all updates back');
 	    // Brute force copy object
 	    let dataToSend = {};
 	    dataToSend.interests = expRes.locals.userInfo.interests.slice(0);
@@ -91,5 +87,33 @@ apiController.makeInterestRequests = (req, expRes, next) => {
 	});
 
 };
+
+apiController.addApi = (req, expRes, next) => {
+	console.log('In apiController.addApi - expRes.locals.userInfo: ',expRes.locals.userInfo);
+	let apiArr = expRes.locals.userInfo.interests;
+	let apiResults = [];
+	for(let i = 0; i < apiArr.length; i++) {
+		let newReqPromise = new Promise((resolve, reject) => {
+			request(supportedApiLinks[apiArr[i]], { json: true }, (err, apiRes, body) => {
+			  if (err) { 
+			  	console.log(err);
+			  	reject('err');
+			  }
+			  resolve(body);
+			  // expRes.send({name: body.name});
+			});
+		})
+		apiResults.push(newReqPromise);
+	}
+
+	Promise.all(apiResults).then((results) => {
+		// Brute force copy object
+		let dataToSend = {};
+		dataToSend.apiData = results;
+		console.log('New data to send', dataToSend);
+		expRes.json(dataToSend);
+	});
+
+}
 
 module.exports = apiController;

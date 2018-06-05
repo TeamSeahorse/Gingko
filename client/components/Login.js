@@ -99,7 +99,7 @@ class Login extends React.Component {
     }
 
     let failedLogin;
-    if (invalidLogin) failedLogin = <div>Bad Login</div>;
+    if (invalidLogin) failedLogin = <div>Invalid username/password combination</div>;
     else failedLogin = <div></div>;
 
 
