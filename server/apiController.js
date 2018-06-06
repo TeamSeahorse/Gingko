@@ -19,14 +19,21 @@ const supportedApiLinks = {
 }
 
 
+
 apiController.makeInterestRequests = (req, expRes, next) => {
 	let apiArr = expRes.locals.userInfo.interests;
 	let apiResults = [];
+	let userAPIs = expRes.locals.userInfo.interests;
 
-	for (let i = 0; i < apiArr.length; i += 1) {
+
+	console.log('THIS IS REQ.BODY',req.body);
+
+	for (let i = 0; i < userAPIs.length; i += 1) {
 
 		let newReqPromise = new Promise((resolve, reject) => {
+
 			request(supportedApiLinks[apiArr[i]], { json: true }, (err, apiRes, body) => {
+
 			  if (err) { 
 			  	console.log(err);
 			  	reject('err');
