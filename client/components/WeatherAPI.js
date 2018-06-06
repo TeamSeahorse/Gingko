@@ -1,7 +1,7 @@
 import React from 'react';
 
 const WeatherAPI = (props) => {
-    // console.log('what is props :' , props.info);
+    console.log('WeatherAPI is props :' , props.info);
   return (
   <div className="apiDiv">
   	<h1>Weather</h1>

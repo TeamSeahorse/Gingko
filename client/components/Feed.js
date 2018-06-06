@@ -19,11 +19,12 @@ class Feed extends React.Component {
     super(props);
     this.state = { 
       buttonTitle: 'Add',
-      interests: [],
+      interests: this.props.location.state.referrer.interests,
       //this.props.location.state.referrer.interests
       apiData: this.props.location.state.referrer.apiData
     };
     this.updateSubscriptions = this.updateSubscriptions.bind(this);
+    this.deleteSubscriptions = this.deleteSubscriptions.bind(this);
     // add initial state for feed component
     // bind function
   }
@@ -45,7 +46,39 @@ class Feed extends React.Component {
       apiRequest.push("2");
     }
 
-    this.setState({interests: apiRequest});
+    let sendData = {
+      username: this.props.location.state.referrer.username,
+      interests: apiRequest
+    };
+    let that = this;
+    fetch('/addApi', {
+        method: 'POST', 
+        body: JSON.stringify(sendData), //
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      }).then(res => {
+        return res.json()
+      }).then(response => {
+        console.log('In success - response: ',response)
+        that.setState({
+          interests: response.interests,
+          apiData: response.apiData
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error)
+        // that.setState({
+        //   interests: response,
+        //   apiData: response
+        // });
+      });
+
+    // this.setState({interests: apiRequest});
+  }
+
+  deleteSubscriptions(deleteInterest) {
+
   }
 
   render() {
@@ -54,18 +87,29 @@ class Feed extends React.Component {
     // let interests = [0];
     // let apiData = this.props.location.state.referrer.apiData;
     let displayArr = []; 
+
+    let displayApiData = [];
+    for(let i = 0; i < this.state.interests.length; i++) {
+      displayApiData.push(this.state.apiData[i]);
+    }
+    console.log('this.state.interests: ', this.state.interests);
+    console.log('displayApiData: ', displayApiData);
+    
     for (let i = 0; i < this.state.interests.length; i++) { 
-      //console.log('displaying api comp for',this.state.interests[i], this.state.apiData[i])
-      if (this.state.interests[i] === '0') displayArr.push(<PokemonAPI info={this.state.apiData[0]}/>);
-      else if (this.state.interests[i] === '1') displayArr.push(<MoviesAPI info={this.state.apiData[1]}/>);
-      else if (this.state.interests[i] === '2') displayArr.push(<WeatherAPI info={this.state.apiData[2]}/>);
+      // if (this.state.interests[i] === '0') displayArr.push(<PokemonAPI info={this.state.apiData[0]}/>);
+      // else if (this.state.interests[i] === '1') displayArr.push(<MoviesAPI info={this.state.apiData[1]}/>);
+      // else if (this.state.interests[i] === '2') displayArr.push(<WeatherAPI info={this.state.apiData[2]}/>);
+      if (this.state.interests[i] === '0') displayArr.push(<PokemonAPI info={displayApiData[i]}/>);
+      else if (this.state.interests[i] === '1') displayArr.push(<MoviesAPI info={displayApiData[i]}/>);
+      else if (this.state.interests[i] === '2') displayArr.push(<WeatherAPI info={displayApiData[i]}/>);
     }
 
-    displayArr.push(<Dropdown onClick={this.updateSubscriptions} buttonTitle={this.state.buttonTitle} i={'drop'}/>);
+    // displayArr.push(<Dropdown onClick={this.updateSubscriptions} buttonTitle={this.state.buttonTitle} i={'drop'}/>);
 
     return (
       <div>
         <h1>{'Feed Page for ' + username}</h1>
+        <Dropdown onClick={this.updateSubscriptions} buttonTitle={this.state.buttonTitle} i={'drop'}/>
         {displayArr}
       </div>
     )

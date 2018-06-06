@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MoviesAPI = (props) => {
-  // console.log('AP1 props are', props);
+  console.log('MoviesAPI props are', props);
   return (
   <div className="apiDiv">
   	<h1>Films</h1>

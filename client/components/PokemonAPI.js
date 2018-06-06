@@ -2,7 +2,7 @@
 import React from 'react';
 
 const PokemonAPI = (props) => {
-  // console.log('api0Display props are', props);
+  console.log('PokemonAPI props are', props);
   return (
   	<div className='apiDiv'>
   	  <h3>Pokemon</h3>
