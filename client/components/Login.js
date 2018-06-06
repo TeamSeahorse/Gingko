@@ -123,9 +123,9 @@ class Login extends React.Component {
   // }
 
   render() {
-    console.log('Login Component Props are', this.props);
-    console.log('Login Component State are', this.state);
-    console.log('Login Component has', this);
+    // console.log('Login Component Props are', this.props);
+    // console.log('Login Component State are', this.state);
+    // console.log('Login Component has', this);
     const { userLogginIn, invalidLogin, userInfo } = this.state;
 
     if (userLogginIn === true) {

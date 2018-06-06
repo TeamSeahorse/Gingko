@@ -12,14 +12,10 @@ const loginSchema = new Schema({
 
 
 loginSchema.pre('save', function(next) {
-  // console.log('username: ',this.username);
-  console.log('save: ',this.password);
-  // let that = this;
+  console.log('In mongoose pre - this: ',this)
   bcrypt.hash(this.password, SALT_WORK_FACTOR, (err, hash) => {
-    console.log('inside password: ',this.password);
     if(hash) {
       this.password = hash;
-      console.log('this.password: ', this.password)
       return next();
     }  
     return next(new Error(err));

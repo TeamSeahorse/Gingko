@@ -15,8 +15,6 @@ import Feed from './Feed.js';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // add initial state for feed component
-    // bind function
   }
 
   // add method to update the subscriptions a user has. on click

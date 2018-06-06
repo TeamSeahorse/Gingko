@@ -5,21 +5,20 @@ import { MenuItem } from 'react-bootstrap';
 const BUTTONS = 'Options';
 
 
-
-function renderDropDownButton(props) {
+function Dropdown(props) {
     return (
         <DropdownButton 
-        bsStyle={props.title.toLowerCase()}
-        title = {props.title}
+        bsStyle={props.buttonTitle.toLowerCase()}
+        title = {props.buttonTitle}
         key = {props.i}
         >
-        <MenuItem eventKey="1" multi={true}>Dogs</MenuItem>
-        <MenuItem eventKey="2" multi={true}>Firemen</MenuItem>
-        <MenuItem eventKey="3" multi={true}>Restaurants</MenuItem>
+        <MenuItem eventKey="1" id="pokemon" multi={true} onClick={ () => props.onClick('Pokemon') } >Pokemon</MenuItem>
+        <MenuItem eventKey="2" id="movies" multi={true} onClick={ () => props.onClick('Movies') } >Movies</MenuItem>
+        <MenuItem eventKey="3" id="weather" multi={true} onClick={ () => props.onClick('Weather') } >Weather</MenuItem>
 
         </DropdownButton>
     );
 }
 
 
-export default renderDropDownButton; 
+export default Dropdown; 
