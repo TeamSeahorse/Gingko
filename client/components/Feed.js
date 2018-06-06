@@ -29,9 +29,9 @@ class Feed extends React.Component {
     let displayArr = []; 
     for (let i = 0; i < interests.length; i++) { 
       console.log('displaying api comp for',interests[i], apiData[i])
-      if (interests[i] === 0) displayArr.push(<ApiZeroDisplay info={apiData[i]}/>);
-      else if (interests[i] === 1) displayArr.push(<ApiOneDisplay info={apiData[i]}/>);
-      else if (interests[i] === 2) displayArr.push(<ApiTwoDisplay info={apiData[i]}/>);
+      if (interests[i] === "0") displayArr.push(<ApiZeroDisplay info={apiData[i]}/>);
+      else if (interests[i] === "1") displayArr.push(<ApiOneDisplay info={apiData[i]}/>);
+      else if (interests[i] === "2") displayArr.push(<ApiTwoDisplay info={apiData[i]}/>);
     }
 
     displayArr.push(<Dropdown title={'Option'} i={'drop'}/>);

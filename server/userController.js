@@ -1,35 +1,61 @@
 const User = require('./../db/loginSchema');
 
+const bcrypt = require('bcrypt');
+
 // middleware for logins && signups
 
 const userController = {};
 userController.createUser = (req, res) => {
-
-	User.create({
-		username: req.body.username,
-		password: req.body.password
-	}, (err, user) => {
-		if (err) {
-			console.log(err);
-			res.send({error: 'Could not create user'});
-		}
-		else res.status(200).send(user);
+	let createUser = new User({
+    username: req.body.username,
+    password: req.body.password
 	});
+	createUser.save((err) => {
+    if(err) {
+      console.log(err);
+			res.send({error: 'Could not create user'});
+    } else {
+			console.log('no err')
+			res.status(200).send();
+    }
+	});
+	
+	// User.create({
+	// 	username: req.body.username,
+	// 	password: req.body.password
+	// }, (err, user) => {
+	// 	if (err) {
+	// 		console.log(err);
+	// 		res.send({error: 'Could not create user'});
+	// 	}
+	// 	else res.status(200).send(user);
+	// });
 
 };
 
 userController.verifyUser = (req, res, next) => {
 	console.log('verifyUser req.body: ', req.body);
-	User.findOne(req.body, (err, userInfo) => {
+	User.findOne({username: req.body.username}, (err, userInfo) => {
 		console.log('userInfo: ',userInfo);
 		if (userInfo == null) {
 			console.log('userInfo == null');
-			res.send({error: 'user does not exist, please create an account'});
+			// res.send({error: 'user does not exist, please create an account'});
+			res.send(err);
 		} else {
 			console.log('userInfo != null');
-			res.locals.userInfo = userInfo;
-			next();
+			bcrypt.compare(req.body.password, userInfo.password, (err, result)=> {
+				if(result) {
+					res.locals.userInfo = userInfo;
+					next();
+				} else {
+					res.send(err);
+				}
+			});
+
+			// res.locals.userInfo = userInfo;
+			// next();
 		}
+
 	});
 
 };
