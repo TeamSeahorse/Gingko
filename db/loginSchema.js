@@ -23,4 +23,4 @@ loginSchema.pre('save', function(next) {
 
 });
 
-module.exports = mongoose.model('login', loginSchema); 
+module.exports = mongoose.model('users', loginSchema); 

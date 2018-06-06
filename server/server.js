@@ -7,8 +7,8 @@ const userController = require('./userController');
 const apiController = require('./apiController'); 
 
 const mongoose = require('mongoose'); 
-const MLAB_URI = 'mongodb://admin:admin0000@ds057234.mlab.com:57234/gingko-iteration';
-// const MLAB_URI = 'mongodb://MylesG:ilovetesting1!@ds249530.mlab.com:49530/users';
+// const MLAB_URI = 'mongodb://admin:admin0000@ds057234.mlab.com:57234/gingko-iteration';
+const MLAB_URI = 'mongodb://MylesG:ilovetesting1!@ds249530.mlab.com:49530/users';
 
 mongoose.connect(MLAB_URI);
 mongoose.connection.once('open', () => { 
